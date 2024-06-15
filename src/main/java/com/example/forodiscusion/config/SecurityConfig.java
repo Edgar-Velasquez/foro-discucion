@@ -19,16 +19,21 @@ public class SecurityConfig {
     @Bean
     public UserDetailsService userDetailsService(PasswordEncoder passwordEncoder) {
         UserDetails user = User.withUsername("user")
-            .password(passwordEncoder.encode("password"))
-            .roles("USER")
-            .build();
+                .password(passwordEncoder.encode("password"))
+                .roles("USER")
+                .build();
+
+        UserDetails user2 = User.withUsername("example")
+                .password(passwordEncoder.encode("password2"))
+                .roles("USER")
+                .build();
 
         UserDetails admin = User.withUsername("admin")
-            .password(passwordEncoder.encode("password"))
-            .roles("ADMIN")
-            .build();
+                .password(passwordEncoder.encode("password"))
+                .roles("ADMIN")
+                .build();
 
-        return new InMemoryUserDetailsManager(user, admin);
+        return new InMemoryUserDetailsManager(user, user2, admin);
     }
 
     @Bean
@@ -38,19 +43,11 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http
-            .authorizeHttpRequests(authorize -> authorize
+        http.authorizeHttpRequests(authorize -> authorize
                 .requestMatchers("/", "/home").permitAll()
-                .anyRequest().authenticated()
-            )
-            .formLogin(form -> form
-                .loginPage("/login")
-                .permitAll()
-            )
-            .logout(logout -> logout
-                .permitAll()
-            );
-
+                .anyRequest().authenticated())
+                .formLogin(form -> form.loginPage("/login").permitAll())
+                .logout(logout -> logout.permitAll());
         return http.build();
     }
 }

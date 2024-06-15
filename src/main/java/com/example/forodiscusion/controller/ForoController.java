@@ -30,6 +30,11 @@ public class ForoController {
         return "home";
     }
 
+    @GetMapping("/home")
+    public String home2() {
+        return "home";
+    }
+
     @GetMapping("/login")
     public String login() {
         return "login";
