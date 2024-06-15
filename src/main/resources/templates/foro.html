@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Foro de Discusión</title>
+    <link rel="stylesheet" th:href="@{/styles.css}">
+</head>
+<body>
+    <h1>Foro de Discusión</h1>
+    <a th:href="@{/nuevo-tema}">Crear nuevo tema</a>
+    <table>
+        <thead>
+            <tr>
+                <th>Título</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="tema : ${temas}">
+                <td th:text="${tema.titulo}"></td>
+                <td>
+                    <a th:href="@{/tema/{id}(id=${tema.id})}">Ver</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

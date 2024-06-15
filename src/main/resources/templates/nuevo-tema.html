@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Nuevo Tema</title>
+    <link rel="stylesheet" th:href="@{/styles.css}">
+</head>
+<body>
+    <h1 style="margin-left: 20rem;">Crear nuevo tema</h1>
+    <form th:action="@{/nuevo-tema}" th:object="${tema}" method="post">
+        <div>
+            <label for="titulo">Título:</label>
+            <input type="text" id="titulo" th:field="*{titulo}" required>
+        </div>
+        <div>
+            <label for="contenido">Contenido:</label>
+            <textarea id="contenido" th:field="*{contenido}" required></textarea>
+        </div>
+        <button type="submit">Crear tema</button>
+    </form>
+</body>
+</html>

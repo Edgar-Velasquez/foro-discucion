@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Tema de Discusión</title>
+    <link rel="stylesheet" th:href="@{/styles.css}">
+</head>
+<body>
+    <h1 th:text="${tema.titulo}"></h1>
+    <p th:text="${tema.contenido}"></p>
+    <h2>Respuestas</h2>
+    <ul>
+        <li th:each="respuesta : ${respuestas}" th:text="${respuesta.contenido}"></li>
+    </ul>
+    <h2>Agregar respuesta</h2>
+    <form th:action="@{/tema/{id}/responder(id=${tema.id})}" th:object="${nuevaRespuesta}" method="post">
+        <div>
+            <label for="contenido">Contenido:</label>
+            <textarea id="contenido" th:field="*{contenido}" required></textarea>
+        </div>
+        <button type="submit">Responder</button>
+    </form>
+    <a th:href="@{/foro}">Volver al foro</a>
+</body>
+</html>
